@@ -1,7 +1,7 @@
 ﻿using EnterpriseArchitecture.Business.Abstract;
 using EnterpriseArchitecture.DataAccess.Abstract;
 using EnterpriseArchitecture.Entities.Concrete;
-using System.Collections.Generic;
+using EnterpriseArchitecture.Entities.DTOs;
 
 namespace EnterpriseArchitecture.Business.Concrete
 {
@@ -12,6 +12,11 @@ namespace EnterpriseArchitecture.Business.Concrete
         public ProductService(IProductDal productDal)
         {
             _productDal = productDal;
+        }
+
+        public void Add(Product product)
+        {
+            _productDal.Create(product);
         }
 
         public List<Product> GetAll()
@@ -28,6 +33,13 @@ namespace EnterpriseArchitecture.Business.Concrete
         public List<Product> GetByUnitPrice(decimal min, decimal max)
         {
             return _productDal.GetAll(x => x.UnitPrice >= min && x.UnitPrice <= max);
+        }
+
+        public List<ProductDetailDTO> GetProductDetails()
+        {
+           var result = _productDal.GetProductDetails();
+
+           return result;
         }
     }
 }

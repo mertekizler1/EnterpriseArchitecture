@@ -40,3 +40,29 @@ foreach (var product in productService.GetByUnitPrice(20,100))
 {
     Console.WriteLine(product.ProductName);
 }
+
+Console.WriteLine("----------------------------");
+
+Console.WriteLine("[Get Product Details Invoked]");
+
+Console.WriteLine("----------------------------");
+
+foreach (var product in productService.GetProductDetails())
+{
+    Console.WriteLine($"Product: {product.ProductName} // Category: {product.CategoryName} // " +
+        $"Description: {product.Description} // Unit Price: {product.UnitPrice} // Units In Stock: {product.UnitsInStock}");
+}
+
+
+Console.WriteLine("----------------------------");
+
+Console.WriteLine("[Get All Category Invoked]");
+
+Console.WriteLine("----------------------------");
+
+ICategoryService categoryService = new CategoryService(new CategoryDal());
+
+foreach (var category in categoryService.GetAll())
+{
+    Console.WriteLine(category.CategoryName);
+}

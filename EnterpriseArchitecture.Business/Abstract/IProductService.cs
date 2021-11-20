@@ -1,4 +1,5 @@
 ﻿using EnterpriseArchitecture.Entities.Concrete;
+using EnterpriseArchitecture.Entities.DTOs;
 
 namespace EnterpriseArchitecture.Business.Abstract
 {
@@ -9,5 +10,9 @@ namespace EnterpriseArchitecture.Business.Abstract
         List<Product> GetByCategoryId(int id);
 
         List<Product> GetByUnitPrice(decimal min, decimal max);
+
+        List<ProductDetailDTO> GetProductDetails();
+
+        void Add(Product product);
     }
 }
