@@ -1,4 +1,5 @@
-﻿using EnterpriseArchitecture.Entities.Concrete;
+﻿using EnterpriseArchitecture.Core.Utilities.Results.Common;
+using EnterpriseArchitecture.Entities.Concrete;
 
 namespace EnterpriseArchitecture.Business.Abstract
 {
@@ -8,7 +9,7 @@ namespace EnterpriseArchitecture.Business.Abstract
 
         Category GetById(int categoryId);
 
-        void Add(Category category);
+        IResult Add(Category category);
 
         //void Delete(int categoryId);
     }

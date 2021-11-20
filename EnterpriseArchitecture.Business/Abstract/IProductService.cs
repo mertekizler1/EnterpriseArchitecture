@@ -1,4 +1,5 @@
-﻿using EnterpriseArchitecture.Entities.Concrete;
+﻿using EnterpriseArchitecture.Core.Utilities.Results.Common;
+using EnterpriseArchitecture.Entities.Concrete;
 using EnterpriseArchitecture.Entities.DTOs;
 
 namespace EnterpriseArchitecture.Business.Abstract
@@ -13,6 +14,8 @@ namespace EnterpriseArchitecture.Business.Abstract
 
         List<ProductDetailDTO> GetProductDetails();
 
-        void Add(Product product);
+        IResult Add(Product product);
+
+        Product GetById(int productId);
     }
 }
