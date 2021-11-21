@@ -13,7 +13,7 @@ Console.WriteLine("[Get All Invoked]");
 
 Console.WriteLine("----------------------------");
 
-foreach (var product in productService.GetAll())
+foreach (var product in productService.GetAll().Data)
 {
     Console.WriteLine(product.ProductName);
 }
@@ -25,7 +25,7 @@ Console.WriteLine("[Get By Category Id Invoked]");
 Console.WriteLine("----------------------------");
 
 
-foreach (var product in productService.GetByCategoryId(5))
+foreach (var product in productService.GetByCategoryId(5).Data)
 {
     Console.WriteLine(product.ProductName);
 }
@@ -36,7 +36,7 @@ Console.WriteLine("[Get By Unit Price Invoked]");
 
 Console.WriteLine("----------------------------");
 
-foreach (var product in productService.GetByUnitPrice(20,100))
+foreach (var product in productService.GetByUnitPrice(20,100).Data)
 {
     Console.WriteLine(product.ProductName);
 }
@@ -47,12 +47,11 @@ Console.WriteLine("[Get Product Details Invoked]");
 
 Console.WriteLine("----------------------------");
 
-foreach (var product in productService.GetProductDetails())
+foreach (var product in productService.GetProductDetails().Data)
 {
     Console.WriteLine($"Product: {product.ProductName} // Category: {product.CategoryName} // " +
         $"Description: {product.Description} // Unit Price: {product.UnitPrice} // Units In Stock: {product.UnitsInStock}");
 }
-
 
 Console.WriteLine("----------------------------");
 

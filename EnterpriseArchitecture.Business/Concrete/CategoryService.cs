@@ -1,4 +1,5 @@
 ﻿using EnterpriseArchitecture.Business.Abstract;
+using EnterpriseArchitecture.Core.Utilities.Results.Common;
 using EnterpriseArchitecture.DataAccess.Abstract;
 using EnterpriseArchitecture.Entities.Concrete;
 
@@ -13,17 +14,19 @@ namespace EnterpriseArchitecture.Business.Concrete
             _categoryDal = categoryDal;
         }
 
-        public void Add(Category category)
+        public IResult Add(Category category)
         {
-            try
+            if (category != null)
             {
                 _categoryDal.Create(category);
+
+                return new Result(true, "Added");
             }
-            catch (Exception ex)
+            else
             {
-                throw new ArgumentException(ex.Message);
+                return new Result(false, "Failed");
             }
-            
+
         }
 
         //public void Delete(int categoryId)
@@ -33,9 +36,9 @@ namespace EnterpriseArchitecture.Business.Concrete
 
         public List<Category> GetAll()
         {
-           var result = _categoryDal.GetAll();
+            var result = _categoryDal.GetAll();
 
-           return result;
+            return result;
         }
 
         public Category GetById(int categoryId)
