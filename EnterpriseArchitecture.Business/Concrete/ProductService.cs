@@ -29,6 +29,11 @@ namespace EnterpriseArchitecture.Business.Concrete
             return new ErrorResult(Messages.ProductNameInvalid);
         }
 
+        public IResult Delete(int productId)
+        {
+            throw new NotImplementedException();
+        }
+
         public IDataResult<List<Product>> GetAll()
         {
             if (DateTime.Now.Hour == 22)

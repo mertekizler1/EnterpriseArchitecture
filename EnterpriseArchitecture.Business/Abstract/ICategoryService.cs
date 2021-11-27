@@ -5,12 +5,12 @@ namespace EnterpriseArchitecture.Business.Abstract
 {
     public interface ICategoryService
     {
-        List<Category> GetAll();
+        IDataResult<List<Category>> GetAll();
 
-        Category GetById(int categoryId);
+        IDataResult<Category> GetById(int categoryId);
 
         IResult Add(Category category);
 
-        //void Delete(int categoryId);
+        IResult Delete(Category category);
     }
 }

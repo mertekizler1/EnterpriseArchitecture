@@ -16,6 +16,8 @@ namespace EnterpriseArchitecture.Business.Abstract
 
         IResult Add(Product product);
 
+        IResult Delete(Product product);
+
         IDataResult<Product> GetById(int productId);
     }
 }

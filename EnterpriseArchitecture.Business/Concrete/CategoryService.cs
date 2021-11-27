@@ -1,4 +1,6 @@
 ﻿using EnterpriseArchitecture.Business.Abstract;
+using EnterpriseArchitecture.Business.Constants;
+using EnterpriseArchitecture.Core.Utilities.Results;
 using EnterpriseArchitecture.Core.Utilities.Results.Common;
 using EnterpriseArchitecture.DataAccess.Abstract;
 using EnterpriseArchitecture.Entities.Concrete;
@@ -16,36 +18,34 @@ namespace EnterpriseArchitecture.Business.Concrete
 
         public IResult Add(Category category)
         {
-            if (category != null)
+            if (category.CategoryId <= 0)
             {
                 _categoryDal.Create(category);
 
-                return new Result(true, "Added");
+                return new SuccessResult(Messages.CategoryAdded);
             }
             else
             {
-                return new Result(false, "Failed");
+                return new ErrorResult(Messages.CategoryIdInvalid);
             }
 
         }
 
-        //public void Delete(int categoryId)
-        //{
-        //    _categoryDal.Delete(categoryId);
-        //}
-
-        public List<Category> GetAll()
+        public IResult Delete(Category category)
         {
-            var result = _categoryDal.GetAll();
+            _categoryDal.Delete(category);
 
-            return result;
+            return new SuccessResult(Messages.CategoryDeleted);
         }
 
-        public Category GetById(int categoryId)
+        public IDataResult<List<Category>> GetAll()
         {
-            var result = _categoryDal.Get(c => c.CategoryId == categoryId);
+            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(), Messages.CategoriesListed);
+        }
 
-            return result;
+        public IDataResult<Category> GetById(int categoryId)
+        {
+            return new SuccessDataResult<Category>(_categoryDal.Get(c => c.CategoryId == categoryId));
         }
     }
 }
