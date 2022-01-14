@@ -13,11 +13,14 @@ namespace EnterpriseArchitecture.Business.Concrete
     {
         IProductDal _productDal;
         private readonly ILogger _logger;
+        private readonly ICategoryService _categoryService;
 
-        public ProductService(IProductDal productDal, ILogger logger)
+        public ProductService(IProductDal productDal, ILogger logger, ICategoryService categoryService)
         {
             productDal = productDal ?? throw new ArgumentNullException(nameof(productDal));
+            categoryService = categoryService ?? throw new ArgumentNullException(nameof(categoryService));
 
+            _categoryService = categoryService;
             _productDal = productDal;
             _logger = logger;
         }
@@ -27,6 +30,9 @@ namespace EnterpriseArchitecture.Business.Concrete
             const string methodName = nameof(Add);
 
             _logger.LogTrace($"[{methodName}] Invoked.");
+
+            _logger.LogDebug($"[{methodName}] Checking category Limit.");
+            CheckCategoryLimit(product.CategoryId);
 
             _logger.LogDebug($"[{methodName}] Checking product name '{product.ProductName}'.");
             if (product.ProductName.Length > 2)
@@ -114,14 +120,9 @@ namespace EnterpriseArchitecture.Business.Concrete
 
             _logger.LogTrace($"[{methodName}] Invoked.");
 
-            if (min == null)
+            if (min == null || max == null)
             {
                 throw new ArgumentNullException(nameof(min));
-            }
-
-            if (max == null)
-            {
-                throw new ArgumentNullException(nameof(max));
             }
 
             _logger.LogDebug($"[{methodName}] Returning result.");
@@ -136,6 +137,22 @@ namespace EnterpriseArchitecture.Business.Concrete
 
             _logger.LogDebug($"[{methodName}] Returning result.");
             return new SuccessDataResult<List<ProductDetailDTO>>(_productDal.GetProductDetails());
+        }
+
+        private IResult CheckCategoryLimit(int categoryId)
+        {
+            const string methodName = nameof(CheckCategoryLimit);
+
+            _logger.LogTrace($"[{methodName}] Invoked.");
+
+            var result = _productDal.GetAll(p => p.CategoryId == categoryId).Count();
+
+            if (result >= 15)
+            {
+                return new ErrorResult("cannot add product.");
+            }
+
+            return new SuccessResult(Messages.ProductAdded);
         }
     }
 }
