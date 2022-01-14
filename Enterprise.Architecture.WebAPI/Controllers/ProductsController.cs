@@ -18,7 +18,7 @@ namespace Enterprise.Architecture.WebAPI.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("/getall")]
         public List<Product> GetAll()
         {
             const string methodName = nameof(GetAll);
